@@ -1,12 +1,22 @@
 from os import environ
 
+# Celery settings
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'
+
 SESSION_CONFIGS = [
-    # dict(
-    #    name='public_goods',
-    #    display_name="Public Goods",
-    #    num_demo_participants=3,
-    #    app_sequence=['public_goods', 'payment_info']
-    # ),
+    dict(
+        name='o',
+        display_name="o",
+        num_demo_participants=1,
+        app_sequence=['o']
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

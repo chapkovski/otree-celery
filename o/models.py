@@ -8,7 +8,7 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
-
+from .tasks import checkplayers
 
 author = 'Your name here'
 
@@ -24,7 +24,10 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        print('BEFORE RUNNING TASK')
+        checkplayers.delay()
+        print('AFTER RUNNING TASK')
 
 
 class Group(BaseGroup):
