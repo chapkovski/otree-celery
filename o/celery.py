@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from celery import Celery
 from importlib import import_module
 from django.conf import settings as django_settings
@@ -16,9 +17,14 @@ def configure_settings(DJANGO_SETTINGS_MODULE: str = 'settings'):
         if setting_name.isupper():
             setting_value = getattr(user_settings_module, setting_name)
             user_settings_dict[setting_name] = setting_value
+
+    # find the correct path of the sqlite database file
+    current_path = Path(os.path.dirname(__file__))
+    db_path = os.path.join(current_path.parent, "db.sqlite3")
+
     default_db = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': "file::memory:?cache=shared",
+        'NAME': db_path,
     }
 
 
